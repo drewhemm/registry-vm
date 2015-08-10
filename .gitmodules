@@ -1,0 +1,24 @@
+[submodule "modules/apt"]
+	path = modules/apt
+	url = http://github.com/puppetlabs/puppetlabs-apt.git
+[submodule "modules/apache"]
+	path = modules/apache
+	url = http://github.com/puppetlabs/puppetlabs-apache.git
+[submodule "modules/docker"]
+	path = modules/docker
+	url = git://github.com/garethr/garethr-docker.git
+[submodule "modules/aptcacherng"]
+	path = modules/aptcacherng
+	url = git://github.com/markhellewell/puppet-aptcacherng.git
+[submodule "modules/jenkins"]
+	path = modules/jenkins
+	url = git://github.com/jenkinsci/puppet-jenkins.git
+[submodule "modules/concat"]
+	path = modules/concat
+	url = http://github.com/puppetlabs/puppetlabs-concat.git
+[submodule "modules/stdlib"]
+	path = modules/stdlib
+	url = http://github.com/puppetlabs/puppetlabs-stdlib.git
+[submodule "modules/java"]
+	path = modules/java
+	url = git://github.com/puppetlabs/puppetlabs-java.git

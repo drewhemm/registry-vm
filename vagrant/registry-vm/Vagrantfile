@@ -1,0 +1,44 @@
+Vagrant.configure("2") do |config|
+
+	config.vm.provider "virtualbox" do |v|
+		v.name = "registry-vm-demo"
+		v.memory = 3584
+		v.cpus = 3
+		v.customize [
+			"modifyvm", :id,
+            "--groups", "/docker",
+            "--cpuexecutioncap", "80",
+            "--nictype1", "virtio",
+            "--natdnshostresolver1", "on"
+	    ]
+	end
+
+	config.vm.box = "ubuntu/trusty64"
+
+	# I use the vagrant-hostsupdater plugin to adjust my /etc/hosts file
+	config.vm.hostname = "registry-vm.demo"
+
+	config.vm.network "private_network", ip: "192.168.33.105"
+	config.vm.network "forwarded_port", guest: 22, host: 23456, id: 'ssh'
+
+	# Map Apache's listening port 80 to 8100 on the host, to avoid any port conflicts
+	# auto-correct if necessary
+	config.vm.network "forwarded_port", guest: 80, host: 8100, auto_correct: true
+
+	# Additional forwarded ports for testing only, these are served by Apache proxy on port 80
+	# config.vm.network "forwarded_port", guest: 8080, host: 8080, id: "jenkins", auto_correct: true
+	# config.vm.network "forwarded_port", guest: 5000, host: 5000, id: "docker-registry", auto_correct: true
+	# config.vm.network "forwarded_port", guest: 3142, host: 3142, id: "apt-cacher-ng", auto_correct: true
+
+	# Custom port well out of the way of the ones Docker uses
+	config.ssh.port = 23456
+
+	config.vm.provision "shell", inline: "apt-get update"
+
+	config.vm.provision "puppet" do |puppet|
+		puppet.manifests_path = "../../manifests"
+		puppet.manifest_file = "registry.pp"
+		puppet.module_path = "../../modules"
+		puppet.working_directory = "/tmp/vagrant-puppet"
+	end
+end
