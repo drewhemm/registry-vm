@@ -10,9 +10,6 @@
 [submodule "modules/aptcacherng"]
 	path = modules/aptcacherng
 	url = git://github.com/markhellewell/puppet-aptcacherng.git
-[submodule "modules/jenkins"]
-	path = modules/jenkins
-	url = git://github.com/jenkinsci/puppet-jenkins.git
 [submodule "modules/concat"]
 	path = modules/concat
 	url = http://github.com/puppetlabs/puppetlabs-concat.git
